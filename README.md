@@ -2,6 +2,7 @@ Redmine-Wiki-Repo-Traceability
 ==============================
 
 http://www.redmine.org/projects/redmine/wiki/Guide#Developer-guide
+http://www.redmine.org/projects/redmine/wiki/Plugin_Tutorial
 
 1. download and install http://gembundler.com/
 2. bundle install
