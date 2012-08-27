@@ -7,10 +7,10 @@ http://www.redmine.org/projects/redmine/wiki/Plugin_Tutorial
 how the plugin was created -> ruby script/rails generate redmine_plugin Redmine_Wiki_Repo_Trace
 
 rvm install ruby-1.9.3-p194 -n redmine2  && rvm rubygems 1.8.6 && gem --list
-
-rake -f rake-tasks/Rakefile build_plugin_env
-
 gem install bundler
+cd setup && bundle install && cd ..
+rake -f setup/Rakefile build_plugin_env
+
 bundle install --without development test
 rake generate_secret_token
 rake db:migrate RAILS_ENV=production

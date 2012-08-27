@@ -1,0 +1,8 @@
+/*
+!plugins/
+!setup
+!.gitignore
+setup/Gemfile.lock
+plugins/README
+!README.md
+!redmine-2.0.3.zip
