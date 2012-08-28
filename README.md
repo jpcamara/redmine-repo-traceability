@@ -21,3 +21,6 @@ rake redmine:load_default_data RAILS_ENV=production
 5. ruby script/rails server webrick -e production
 
 
+rake db:drop db:create db:migrate redmine:plugins:migrate RAILS_ENV=test
+rake redmine:load_default_data RAILS_ENV=test
+ruby plugins/redmine_wiki_repo_trace/test/unit/wiki_repo_test.rb
