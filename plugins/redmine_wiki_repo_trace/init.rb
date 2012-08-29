@@ -9,7 +9,7 @@ end
 
 Redmine::WikiFormatting::Macros.register do
   desc "Takes a repo identifier and a path to a repo file, and starts applying maaaaagic."
-  macro :repo_trace do |obj, args|
+  macro :repo_src do |obj, args|
     # usage - {{repo_trace(repo_identifier,repo_entry)}}
     # puts obj.inspect --> WikiContent - app/models/wiki_content.rb
     # puts args.inspect --> ["some arg"] - whatever arguments are handed into the macro
