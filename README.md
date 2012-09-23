@@ -1,4 +1,4 @@
-Redmine-Wiki-Repo-Traceability
+Redmine Repo Traceability
 ==============================
 
 Traceability is brutal, and the moment documentation is finished it begins its short road towards irrelevance. Wikis
@@ -13,6 +13,9 @@ Goals
 * Not started
     * Associate wiki entries with repository code
     * Notify (somebody) when source code changes that is related to a wiki
+
+Developing
+----------
 
 http://www.redmine.org/projects/redmine/wiki/Guide#Developer-guide
 http://www.redmine.org/projects/redmine/wiki/Plugin_Tutorial
