@@ -2,17 +2,17 @@ Redmine-Wiki-Repo-Traceability
 ==============================
 
 Traceability is brutal, and the moment documentation is finished it begins its short road towards irrelevance. Wikis
-can help since at least they are trapped behind Office shaped bars, but they can become equally unrelated to code over
+can help since at least they aren't trapped behind Office shaped bars, but they can become equally unrelated to code over
 time. This is an attempt to start briding the gap by associating wikis with the source code they describe, and provide
 some kind of notification when things begin to deviate.
 
 Goals
 ----------
 * Started
-** Pull source code into wiki entries for easy viewability (started)
+    * Pull source code into wiki entries for easy viewability (started)
 * Not started
-** Associate wiki entries with repository code
-** Notify (somebody) when source code changes that is related to a wiki
+    * Associate wiki entries with repository code
+    * Notify (somebody) when source code changes that is related to a wiki
 
 http://www.redmine.org/projects/redmine/wiki/Guide#Developer-guide
 http://www.redmine.org/projects/redmine/wiki/Plugin_Tutorial
