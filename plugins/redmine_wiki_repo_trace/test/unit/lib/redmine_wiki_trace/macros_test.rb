@@ -16,11 +16,10 @@ class MacrosTest < ActionView::TestCase
                       :attachments
 
   def setup
-    @wiki = Wiki.find(1)
-    @project = @wiki.project
-    @repository = @project.repository
-    #@repository.identifier = 'some_repo' #FIXME probably shouldn't use the identifier if we can't guarantee it'll be there
-    @repository.save
+    @project = Project.find(2)
+    @repository = Repository::Subversion.create(:project => @project,
+                                                :url => self.class.subversion_repository_url)
+    @wiki = @project.wiki
     assert @repository
   end
 
@@ -37,22 +36,4 @@ class MacrosTest < ActionView::TestCase
     result = textilizable('{{repo_src(file=.project)}}', :object => @wiki)
     puts result
   end
-
-  # def test_macro_include
-  #     @project = Project.find(1)
-  #     # include a page of the current project wiki
-  #     text = "{{include(Another page)}}"
-  #     assert textilizable(text).match(/This is a link to a ticket/)
-  # 
-  #     @project = nil
-  #     # include a page of a specific project wiki
-  #     text = "{{include(ecookbook:Another page)}}"
-  #     assert textilizable(text).match(/This is a link to a ticket/)
-  # 
-  #     text = "{{include(ecookbook:)}}"
-  #     assert textilizable(text).match(/CookBook documentation/)
-  # 
-  #     text = "{{include(unknowidentifier:somepage)}}"
-  #     assert textilizable(text).match(/Page not found/)
-  #   end
 end
