@@ -10,9 +10,12 @@ Goals
 ----------
 * Started
     * Pull source code into wiki entries for easy viewability (started)
+        * Follow the semantics of the "Links to other resources" format for source
+        * http://www.redmine.org/projects/redmine/wiki/RedmineTextFormatting#Redmine-links
 * Not started
     * Associate wiki entries with repository code
     * Notify (somebody) when source code changes that is related to a wiki
+    * Floating table of contents in wiki (ok, unrelated but it'd be nice)
 
 Developing
 ----------
@@ -36,9 +39,8 @@ rake redmine:load_default_data RAILS_ENV=production
 4. bundle install --without development test
 5. ruby script/rails server webrick -e production
 
-
 rake db:drop db:create db:migrate redmine:plugins:migrate RAILS_ENV=test
 
 rake redmine:load_default_data RAILS_ENV=test
 
-ruby plugins/redmine_wiki_repo_trace/test/unit/wiki_repo_test.rb
+ruby plugins/redmine_wiki_repo_trace/test/unit/lib/redmine_wiki_trace/macros_test.rb

@@ -1,21 +1,36 @@
 module RedmineRepoTrace
   module Macros
+    EXTENSIONS = {
+      :rb => "ruby",
+      :xml => "xml"
+    }
+
+    #source:some/file -- Link to the file located at /some/file in the project's repository
+    #source:some/file@52 -- Link to the file's revision 52
+    #source:some/file#L120 -- Link to line 120 of the file
+    #source:some/file@52#L120 -- Link to line 120 of the file's revision 52
+    #source:"some file@52#L120" -- Double quotes can be used when the URL contains spaces
+    #source:repo_identifier|some/file -- Link to a file in a repository other than the project default repository.
+    #source:"repo_identifier|some file" -- Link to a file in a repository other than the project default repository, with spaces in the path.
     Redmine::WikiFormatting::Macros.register do
       desc "Takes a repo identifier and a path to a repo file, and starts applying maaaaagic."
-      macro :repo_src do |obj, args|
-        # usage - {{repo_trace(repo_identifier,repo_entry)}}
-        # puts obj.inspect --> WikiContent - app/models/wiki_content.rb
-        # puts args.inspect --> ["some arg"] - whatever arguments are handed into the macro
-        if args.size != 2
-          raise 'Must have two arguments: repository identifier, repository file path'
+      macro :repo_src do |wiki, args|
+        # usage - {{repo_trace(identifer=identity,file=myfile.rb,style=ruby)}}
+        args, options = extract_macro_options(args, :identifier, :file, :style)
+        unless options[:file]
+          raise 'Must specify a file that is being pulled from the repo'
         end
-        identifier, file_path = args.shift, args.shift
-        repo = Repository.find_by_identifier_param(identifier)
-        repo_entry = repo.entry(file_path)
+        options[:style] ||= EXTENSIONS[File.extname(options[:file]).to_sym]
+
+        repo = if options[:identifier]
+                 wiki.project.repositories.detect {|repo| repo.identifier == options[:identifier]}
+               else
+                 wiki.project.repository
+               end
+        repo_entry = repo.entry(options[:file])
         revision = repo_entry.lastrev
 
-        #not showing as formatted text. errrr.
-        textilizable('<pre><code class="xml syntaxhl">' + repo.cat(file_path, revision.identifier) + '</code></pre>')
+        textilizable("<pre><code class=\"#{options[:style]}\">" + repo.cat(options[:file], revision.identifier) + '</code></pre>')
       end
     end
   end

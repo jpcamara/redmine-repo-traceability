@@ -4,5 +4,6 @@
 !.gitignore
 setup/Gemfile.lock
 plugins/README
+plugins/redmine_cut_tag
 !README.md
 !redmine-2.0.3.zip

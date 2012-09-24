@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../../../test/test_helper')
 
-class WikiRepoTest < ActionView::TestCase
+class MacrosTest < ActionView::TestCase
   include ApplicationHelper
   include ActionView::Helpers::TextHelper
   include ActionView::Helpers::SanitizeHelper
@@ -16,10 +16,10 @@ class WikiRepoTest < ActionView::TestCase
                       :attachments
 
   def setup
-    @project = Project.find(3)
-    @repository = Repository::Subversion.create(:project => @project,
-             :url => self.class.subversion_repository_url)
-    @repository.identifier = 'some_repo' #FIXME probably shouldn't use the identifier if we can't guarantee it'll be there
+    @wiki = Wiki.find(1)
+    @project = @wiki.project
+    @repository = @project.repository
+    #@repository.identifier = 'some_repo' #FIXME probably shouldn't use the identifier if we can't guarantee it'll be there
     @repository.save
     assert @repository
   end
@@ -28,14 +28,13 @@ class WikiRepoTest < ActionView::TestCase
   end
   
   def test_macro_repo_src_should_fail_on_bad_args
-    result = textilizable('{{repo_src}}')
-    assert_equal '<p><div class="flash error">Error executing the <strong>repo_src</strong> macro (Must have two arguments: repository identifier, repository file path)</div></p>', 
+    result = textilizable('{{repo_src}}', :object => @wiki)
+    assert_equal '<p><div class="flash error">Error executing the <strong>repo_src</strong> macro (Must specify a file that is being pulled from the repo)</div></p>',
                   result
   end
-  
+
   def test_macro_retrieves_repo_src
-    puts @repository.inspect
-    result = textilizable('{{repo_src(' + @repository.identifier + ',maven.xml)}}')
+    result = textilizable('{{repo_src(file=.project)}}', :object => @wiki)
     puts result
   end
 
